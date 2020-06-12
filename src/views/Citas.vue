@@ -10,7 +10,7 @@
       />
       <button
         @click="getDatosCita"
-        class="text-white px-4 py-2 w-3/6 mt-6 rounded bg-blue-500 focus:outline-none"
+        class="text-white px-4 py-2 w-3/6 mt-6 rounded bg-blue-500 focus:outline-none hover:bg-blue-600"
       >Comprobar</button>
     </div>
     <div v-if="codigoIntroducido">
@@ -23,7 +23,10 @@
             class="py-3"
           >Fecha: {{this.cita.fecha.getDate()}}/{{this.cita.fecha.getMonth()+1}}/{{this.cita.fecha.getFullYear()}} {{this.cita.fecha.getHours()}}:{{this.cita.fecha.getMinutes()}}0</span>
         </div>
-        <button @click="eliminarCita" class="rounded py-2 text-white px-4 bg-red-500">Cancelar</button>
+        <button
+          @click="eliminarCita"
+          class="rounded py-2 text-white px-4 bg-red-500 hover:bg-red-600"
+        >Cancelar</button>
       </div>
     </div>
   </div>

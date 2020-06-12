@@ -85,7 +85,7 @@
         @click="showModal(fecha)"
         v-for="fecha in calendar"
         :class="{ 'booked': fecha.isBooked, 'free': !fecha.isBooked}"
-        class="pt-8 pb-8 text-center font-semibold rounded cursor-pointer focus:outline-none"
+        class="pt-8 pb-8 text-center font-semibold rounded cursor-pointer focus:outline-none hover:bg-green-400"
       >{{fecha.hour}}:{{ (fecha.minutes+'0').slice(-2)}}</div>
     </div>
   </div>
