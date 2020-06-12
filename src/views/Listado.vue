@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center mt-6">
     <h1 class="sm:text-xl text-2xl font-bold mb-8">Próximas citas</h1>
     <!-- La tabla solo se muestra en ordenadores -->
-    <table class="sm:hidden lg:block xl:block text-center">
+    <table v-if="citasPosteriores.length > 0" class="sm:hidden lg:block xl:block text-center">
       <tr class>
         <th class="border-b px-24 py-2">Nombre</th>
         <th class="border-b px-24 py-2">Teléfono</th>
@@ -18,13 +18,14 @@
         </td>
         <td class="px-24 py-3">
           <button
+            @click="eliminarCita(cita)"
             class="bg-red-500 px-4 py-2 rounded text-white focus:outline-none hover:bg-red-600"
           >Cancelar</button>
         </td>
       </tr>
     </table>
 
-    <div v-if="citas.length == 0">
+    <div v-if="citasPosteriores.length == 0">
       <span>No hay ninguna cita</span>
     </div>
 
@@ -51,7 +52,7 @@
       </div>
       <div class="p-3 w-full flex justify-between items-center">
         <span class="font-bold">Acciones:</span>
-        <button class="bg-red-500 px-4 py-2 rounded text-white">Cancelar</button>
+        <button @click="eliminarCita(cita)" class="bg-red-500 px-4 py-2 rounded text-white">Cancelar</button>
       </div>
     </div>
     <div class="mb-16 xl:hidden">&nbsp;</div>
@@ -65,8 +66,7 @@ export default {
   name: "listado",
   data() {
     return {
-      citas: [],
-      nuevoArray: []
+      citas: []
     };
   },
   methods: {
@@ -76,6 +76,21 @@ export default {
           this.citas.push(doc.data());
         });
       });
+    },
+
+    eliminarCita(cita) {
+      var citas = db
+        .collection("citas")
+        .where("codigo", "==", cita.codigo)
+        .get()
+        .then(idCita => {
+          db.collection("citas")
+            .doc(idCita.docs[0].id)
+            .delete()
+            .then(() => {
+              window.location.reload();
+            });
+        });
     }
   },
 
@@ -84,15 +99,6 @@ export default {
   },
 
   computed: {
-    calendar() {
-      var citaTiempo = [];
-      citaTiempo = this.citas.filter(cita => {
-        cita.fecha.seconds > new Date().getTime() / 1000;
-      });
-      //this.nuevoArray = citaTiempo;
-      return citaTiempo;
-    },
-
     citasPosteriores() {
       let citasPosteriores = [];
       this.citas.forEach(cita => {
