@@ -67,11 +67,11 @@
     <!-- Se muestra el datepicker-->
     <div class="flex flex-col items-center justify-center">
       <p class="p-4 sm:text-lg sm:pt-4 xl:text-xl xl:pt-8">Selecciona una fecha:</p>
-      <date-picker :value="date" v-model="date" :not-before="new Date()" class="sm:mb-4 xl:mb-8" />
+      <date-picker :value="date" v-model="date" class="sm:mb-4 xl:mb-8" />
     </div>
     <!-- Si es domingo, muestra un horario de cerrado -->
 
-    <div v-if="date.getDay() == 6" class="flex justify-center">
+    <div v-if="date.getDay() == 0" class="flex justify-center">
       <h1 class="pt-12 text-2xl text-red-500">Es domingo. La peluquería está cerrada.</h1>
     </div>
 
