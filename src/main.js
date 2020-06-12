@@ -6,7 +6,7 @@ import '@/assets/css/tailwind.css'
 
 
 import { firestorePlugin } from 'vuefire'
-import '../firebase.js';
+//import 'config/firebase.js';
 Vue.use(firestorePlugin)
 
 Vue.config.productionTip = false

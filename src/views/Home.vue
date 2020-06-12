@@ -94,7 +94,8 @@
 <script>
 import DatePicker from "v-calendar/lib/components/date-picker.umd";
 //importamos firebase
-import { db } from "../../firebase.js";
+//import { db } from "../../firebase.js";
+import { db } from "../config/firebase.js";
 import schedule from "../config/schedule";
 
 export default {

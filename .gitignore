@@ -4,8 +4,14 @@ node_modules
 .browserslistrc
 babel.config.js
 tailwind.config.js
-firebase.js
+/src/config/firebase.js
 postcss.config.js
+firebase.js
+.firebaserc
+firebase.json
+firestore.rules
+firestore.indexes.json
+/.firebase
 
 # local env files
 .env.local
