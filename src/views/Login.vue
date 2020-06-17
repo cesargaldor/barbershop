@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center lg:py-16 xl:py-48 sm:py-32 px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-center lg:py-16 xl:py-48 sm:py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full">
       <div class="w-full flex flex-col">
         <input
