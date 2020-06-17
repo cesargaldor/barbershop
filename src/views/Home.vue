@@ -10,16 +10,14 @@
           <div class="text-center text-2xl font-bold mb-3">Necesitamos algunos datos</div>
           <div class="items-center justify-center">
             <input
-              required
               class="border border-gray-200 p-3 mb-2 w-full rounded focus:outline-none"
               type="text"
               placeholder="Introduce tu nombre"
               v-model="nuevaCita.nombre"
             />
             <input
-              required
               class="border border-gray-200 p-3 mt-2 w-full rounded focus:outline-none"
-              type="text"
+              type="number"
               placeholder="Introduce tu telefono"
               v-model="nuevaCita.telefono"
             />
@@ -31,7 +29,9 @@
             >Cancelar</button>
             <button
               @click="addCita"
+              :disabled="!formularioValido()"
               class="rounded bg-blue-500 text-white px-8 mt-1 py-2 focus:outline-none"
+              :class="{'noValido': !formularioValido()}"
             >Crear</button>
           </div>
         </div>
@@ -142,6 +142,12 @@ export default {
       this.codigoGenerado = codigoCita;
     },
 
+    formularioValido() {
+      return (
+        this.nuevaCita.nombre.length > 0 && this.nuevaCita.telefono.length > 0
+      );
+    },
+
     // Este metodo recoge todas las citas de la base de datos y las mete en un array
     async getCitas() {
       await db.collection("citas").onSnapshot(query => {
@@ -222,5 +228,10 @@ export default {
 .free {
   cursor: pointer;
   background-color: #95ee95;
+}
+
+.noValido {
+  cursor: not-allowed;
+  opacity: 70%;
 }
 </style>

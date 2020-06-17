@@ -1,46 +1,8 @@
 <template>
   <div>
-    <!-- Login que solo se muestra si el usuario no esta registrado -->
-    <div
-      v-if="!isAuth"
-      class="flex items-center justify-center lg:py-16 xl:py-56 sm:py-40 px-4 sm:px-6 lg:px-8"
-    >
-      <div class="max-w-md w-full">
-        <div class="w-full flex flex-col">
-          <input
-            v-model="email"
-            class="outline-none border border-solid border-gray-300 p-4 mb-2 rounded"
-            type="text"
-            placeholder="Introduce tu usuario"
-          />
-          <input
-            v-model="password"
-            class="outline-none border border-solid border-gray-300 p-4 mb-4 rounded"
-            type="password"
-            placeholder="Introduce tu contraseña"
-          />
-          <button
-            @click="login"
-            class="group relative w-full flex justify-center py-4 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-black"
-          >
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <svg class="h-5 w-5 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </span>
-            Acceder
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Esto solo se muestra si esta registrado -->
 
-    <div v-if="isAuth" class="flex flex-col items-center justify-center mt-6">
+    <div class="flex flex-col items-center justify-center mt-6">
       <button @click="logout" class="px-5 py-2 bg-blue-400 rounded text-white mb-5">Salir</button>
       <h1 class="sm:text-xl text-2xl font-bold mb-8">Próximas citas</h1>
       <!-- La tabla solo se muestra en ordenadores -->
@@ -67,7 +29,7 @@
         </tr>
       </table>
 
-      <div v-if="citasPosteriores.length == 0">
+      <div v-else>
         <span>No hay ninguna cita</span>
       </div>
 
@@ -114,39 +76,27 @@ export default {
   data() {
     return {
       citas: [],
-      isAuth: false,
-      email: "",
-      password: ""
+      isAuth: null
     };
   },
   methods: {
-    login() {
-      auth
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.isAuth = true;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-
-    logout() {
-      auth.signOut().then(() => {
-        this.isAuth = false;
-      });
-    },
-
     checkAdminAuth() {
       if (auth.currentUser) {
         this.isAuth = true;
       }
     },
 
+    logout() {
+      auth.signOut().then(() => {
+        this.$router.replace("/");
+      });
+    },
+
     async getCitas() {
       await db.collection("citas").onSnapshot(query => {
         query.forEach(doc => {
           this.citas.push(doc.data());
+          this.isAuth = true;
         });
       });
     },
@@ -161,7 +111,6 @@ export default {
             .doc(idCita.docs[0].id)
             .delete()
             .then(() => {
-              this.isAuth = true;
               window.location.reload();
             });
         });

@@ -72,7 +72,7 @@
       <div class="flex justify-center">
         <router-link class="xl:text-lg sm:text-base p-4" to="/">Calendario</router-link>
         <router-link class="xl:text-lg sm:text-base p-4" to="/citas">Citas</router-link>
-        <router-link class="xl:text-lg sm:text-base p-4" to="/admin">Admin</router-link>
+        <router-link class="xl:text-lg sm:text-base p-4" to="/login">Admin</router-link>
       </div>
     </div>
 
@@ -167,7 +167,7 @@
         </router-link>
       </div>
       <div class="w-1/3 z-10 text-sm">
-        <router-link to="/admin" class="sm:flex sm:flex-col sm:justify-center sm:items-center p-3">
+        <router-link to="/login" class="sm:flex sm:flex-col sm:justify-center sm:items-center p-3">
           <img src="@/assets/img/person.png" alt="admin" class="w-6" />
           <span>Admin</span>
         </router-link>
