@@ -16,14 +16,9 @@ const routes = [
     component: () => import('../views/Citas.vue')
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue')
-  },
-  {
-    path: '/listado',
-    name: 'Listado',
-    component: () => import('../views/Listado.vue')
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue')
   }
 ]
 
